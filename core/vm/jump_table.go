@@ -81,13 +81,6 @@ func validate(jt JumpTable) JumpTable {
 
 func newShanghaiInstructionSet() JumpTable {
 	instructionSet := newMergeInstructionSet()
-	instructionSet[SENDALL] = &operation{
-		execute:     opSendall,
-		constantGas: params.SelfdestructGasEIP150,
-		dynamicGas:  gasSelfdestructEIP3529,
-		minStack:    minStack(1, 0),
-		maxStack:    maxStack(1, 0),
-	}
 	return validate(instructionSet)
 }
 
@@ -116,6 +109,13 @@ func newLondonInstructionSet() JumpTable {
 func newBerlinInstructionSet() JumpTable {
 	instructionSet := newIstanbulInstructionSet()
 	enable2929(&instructionSet) // Access lists for trie accesses https://eips.ethereum.org/EIPS/eip-2929
+	instructionSet[SENDALL] = &operation{
+		execute:     opSendall,
+		constantGas: params.SelfdestructGasEIP150,
+		dynamicGas:  gasSelfdestructEIP3529,
+		minStack:    minStack(1, 0),
+		maxStack:    maxStack(1, 0),
+	}
 	return validate(instructionSet)
 }
 
