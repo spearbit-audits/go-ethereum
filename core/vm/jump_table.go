@@ -82,10 +82,11 @@ func validate(jt JumpTable) JumpTable {
 func newShanghaiInstructionSet() JumpTable {
 	instructionSet := newMergeInstructionSet()
 	instructionSet[SENDALL] = &operation{
-		execute:    opSendall,
-		dynamicGas: gasSelfdestructEIP3529,
-		minStack:   minStack(1, 0),
-		maxStack:   maxStack(1, 0),
+		execute:     opSendall,
+		constantGas: params.SelfdestructGasEIP150,
+		dynamicGas:  gasSelfdestructEIP3529,
+		minStack:    minStack(1, 0),
+		maxStack:    maxStack(1, 0),
 	}
 	return validate(instructionSet)
 }
